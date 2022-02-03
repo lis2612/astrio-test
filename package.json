@@ -1,0 +1,22 @@
+{
+  "name": "astrio-test",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.12.4",
+    "material-icons": "^1.10.6",
+    "quasar": "^2.5.1",
+    "vue": "^3.2.25",
+    "vuesax": "^3.12.2"
+  },
+  "devDependencies": {
+    "@quasar/vite-plugin": "^1.0.4",
+    "@vitejs/plugin-vue": "^2.0.0",
+    "sass": "^1.32.0",
+    "vite": "^2.7.2"
+  }
+}
