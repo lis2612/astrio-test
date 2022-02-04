@@ -3,12 +3,12 @@
     <my-header @leftDrawerOpen="toggleLeftDrawer"></my-header>
 
     <q-drawer show-if-above v-model="drawerOpen" side="left" elevated>
-      <brands-list></brands-list>
+      <brands-list @applyFilter="sendFilter"></brands-list>
     </q-drawer>
 
     <q-page-container>
       <!-- <router-view /> -->
-      <cards-list></cards-list>
+      <cards-list :filter-arr="filter"></cards-list>
     </q-page-container>
   </q-layout>
 </template>
@@ -24,12 +24,15 @@
     data() {
       return {
         drawerOpen: false,
+        filter: [],
       };
     },
     methods: {
       toggleLeftDrawer() {
-        console.log("!!!");
         this.drawerOpen = !this.drawerOpen;
+      },
+      sendFilter(event) {
+        this.filter = event;
       },
     },
   };
