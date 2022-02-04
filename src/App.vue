@@ -3,7 +3,7 @@
     <my-header @leftDrawerOpen="toggleLeftDrawer"></my-header>
 
     <q-drawer show-if-above v-model="drawerOpen" side="left" elevated>
-      <brands-list @applyFilter="sendFilter"></brands-list>
+      <brands-list @applyFilter="setFilter"></brands-list>
     </q-drawer>
 
     <q-page-container>
@@ -31,7 +31,7 @@
       toggleLeftDrawer() {
         this.drawerOpen = !this.drawerOpen;
       },
-      sendFilter(event) {
+      setFilter(event) {
         this.filter = event;
       },
     },
