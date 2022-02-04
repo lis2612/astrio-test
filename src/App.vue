@@ -1,21 +1,8 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header bordered class="bg-primary text-white">
-      <q-toolbar>
-        <q-btn dense icon="menu" @click="toggleLeftDrawer" />
+    <my-header @leftDrawerOpen="toggleLeftDrawer"></my-header>
 
-        <q-toolbar-title>
-          <div>
-            <img
-              style="margin-top: 10px; margin-left: 20px"
-              src="./assets/logo.png"
-            />
-          </div>
-        </q-toolbar-title>
-      </q-toolbar>
-    </q-header>
-
-    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" elevated>
+    <q-drawer show-if-above v-model="drawerOpen" side="left" elevated>
       <brands-list></brands-list>
     </q-drawer>
 
@@ -30,22 +17,20 @@
   import { ref } from "vue";
   import brandsList from "./components/brandsList.vue";
   import cardsList from "./components/cardsList.vue";
+  import myHeader from "./components/myHeader.vue";
 
   export default {
-    components: { brandsList, cardsList },
-    setup() {
-
-      const leftDrawerOpen = ref(false);
+    components: { brandsList, cardsList, myHeader },
+    data() {
       return {
-        
-        leftDrawerOpen,
-        toggleLeftDrawer() {
-          leftDrawerOpen.value = !leftDrawerOpen.value;
-        },
+        drawerOpen: false,
       };
+    },
+    methods: {
+      toggleLeftDrawer() {
+        console.log("!!!");
+        this.drawerOpen = !this.drawerOpen;
+      },
     },
   };
 </script>
-<style lang="sass">
-
-</style>
