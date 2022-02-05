@@ -15,7 +15,11 @@
               {{ card.regular_price.value }}
               {{ card.regular_price.currency }}
             </div>
-            <q-btn flat icon="local_grocery_store" @click="$emit('addToCart', card.id)"></q-btn>
+            <q-btn
+              flat
+              icon="local_grocery_store"
+              @click="$emit('addToCart', card.id)"
+            ></q-btn>
           </q-card-actions>
         </q-card>
       </div>
@@ -28,20 +32,17 @@
   export default {
     props: {
       filterArr: Array,
-      productList:Array,
+      productList: Array,
     },
     data() {
       return {
         filteredList: this.productList,
       };
     },
-    // created() {
-    //   this.filteredList = this.productList;
-    // },
 
     computed: {
       filteredCards() {
-        if (this.filterArr.length<1) return this.productList;
+        if (this.filterArr.length < 1) return this.productList;
         let list = [];
         for (const item of this.filterArr) {
           for (const card of this.productList) {

@@ -19,6 +19,7 @@
       @closeCart="dialog = !dialog"
       :countInCart="itemsInCart"
       :itemsInCart="cart"
+      :productList="productList"
     ></cart-dialog>
   </q-layout>
 </template>
@@ -29,10 +30,9 @@
   import cardsList from "./components/cardsList.vue";
   import myHeader from "./components/myHeader.vue";
   import cartDialog from "./components/cartDialog.vue";
-  import CartDialog from "./components/cartDialog.vue";
 
   export default {
-    components: { brandsList, cardsList, myHeader, CartDialog },
+    components: { brandsList, cardsList, myHeader, cartDialog },
     data() {
       return {
         productList: JSON.parse(`[
