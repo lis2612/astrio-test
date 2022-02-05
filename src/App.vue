@@ -1,6 +1,9 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <my-header @leftDrawerOpen="toggleLeftDrawer"></my-header>
+    <my-header
+      @leftDrawerOpen="toggleLeftDrawer"
+      :countItems="itemsInCart"
+    ></my-header>
 
     <q-drawer show-if-above v-model="drawerOpen" side="left" elevated>
       <brands-list @applyFilter="setFilter"></brands-list>
@@ -8,7 +11,7 @@
 
     <q-page-container>
       <!-- <router-view /> -->
-      <cards-list :filter-arr="filter"></cards-list>
+      <cards-list :filter-arr="filter" @add-to-cart="addToCart"></cards-list>
     </q-page-container>
   </q-layout>
 </template>
@@ -25,6 +28,7 @@
       return {
         drawerOpen: false,
         filter: [],
+        itemsInCart: 0,
       };
     },
     methods: {
@@ -33,6 +37,10 @@
       },
       setFilter(event) {
         this.filter = event;
+      },
+      addToCart(cardId) {
+        this.itemsInCart += 1;
+        console.log(`Recived emit. CardId=${cardId}`);
       },
     },
   };

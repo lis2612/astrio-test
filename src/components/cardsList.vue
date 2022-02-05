@@ -15,7 +15,7 @@
               {{ card.regular_price.value }}
               {{ card.regular_price.currency }}
             </div>
-            <q-btn flat icon="local_grocery_store"></q-btn>
+            <q-btn flat icon="local_grocery_store" @click="$emit('addToCart', card.id)"></q-btn>
           </q-card-actions>
         </q-card>
       </div>
