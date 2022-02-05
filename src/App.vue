@@ -14,7 +14,12 @@
       <!-- <router-view /> -->
       <cards-list :filter-arr="filter" @add-to-cart="addToCart"></cards-list>
     </q-page-container>
-    <cart-dialog :dialog="dialog" @closeCart="dialog=!dialog" :countInCart="itemsInCart"></cart-dialog>
+    <cart-dialog
+      :dialog="dialog"
+      @closeCart="dialog = !dialog"
+      :countInCart="itemsInCart"
+      :itemsInCart="cart"
+    ></cart-dialog>
   </q-layout>
 </template>
 
@@ -23,8 +28,8 @@
   import brandsList from "./components/brandsList.vue";
   import cardsList from "./components/cardsList.vue";
   import myHeader from "./components/myHeader.vue";
-  import cartDialog from './components/cartDialog.vue'
-import CartDialog from "./components/cartDialog.vue";
+  import cartDialog from "./components/cartDialog.vue";
+  import CartDialog from "./components/cartDialog.vue";
 
   export default {
     components: { brandsList, cardsList, myHeader, CartDialog },
@@ -34,7 +39,8 @@ import CartDialog from "./components/cartDialog.vue";
         filter: [],
         itemsInCart: 0,
         dialog: false,
-        cancelEnabled: false
+        cancelEnabled: false,
+        cart: [],
       };
     },
     methods: {
@@ -45,12 +51,23 @@ import CartDialog from "./components/cartDialog.vue";
         this.filter = event;
       },
       addToCart(cardId) {
-        this.itemsInCart += 1;
-        console.log(`Recived emit. CardId=${cardId}`);
+        let added = false;
+        if (this.cart.length < 1) {
+          this.cart.push({ id: cardId, count: 1 });
+          added = true;
+        } else {
+          for (const item of this.cart) {
+            if (item.id == cardId) {
+              item.count += 1;
+              added = true;
+            }
+          }
+        }
+        if (!added) this.cart.push({ id: cardId, count: 1 });
+        this.itemsInCart = this.cart.length;
       },
-      openCart(){
-        console.log('openCart');
-        this.dialog=!this.dialog;
+      openCart() {
+        this.dialog = !this.dialog;
       },
     },
   };

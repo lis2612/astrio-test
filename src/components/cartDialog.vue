@@ -2,7 +2,7 @@
   <div class="q-pa-md">
     <!-- <q-btn label="Open Dialog" color="primary" @click="dialog = true" /> -->
 
-    <q-dialog v-model="dialog"  @update:model-value="$emit('closeCart')">
+    <q-dialog v-model="dialog" @update:model-value="$emit('closeCart')">
       <q-card>
         <q-card-section class="row items-center">
           <q-avatar
@@ -14,11 +14,12 @@
         </q-card-section>
 
         <q-card-section class="row items-center">
+          {{ itemsInCart }}
         </q-card-section>
 
         <!-- Notice v-close-popup -->
         <q-card-actions align="right">
-          <q-btn  label="Buy" color="primary" v-close-popup />
+          <q-btn label="Buy" color="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -32,6 +33,7 @@
     props: {
       dialog: Boolean,
       countInCart: Number,
+      itemsInCart: Array,
     },
   };
 </script>
