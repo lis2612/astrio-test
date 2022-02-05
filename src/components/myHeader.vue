@@ -11,7 +11,7 @@
           />
         </div>
       </q-toolbar-title>
-      <q-btn flat icon-right="local_grocery_store" label="cart">
+      <q-btn flat icon-right="local_grocery_store" label="cart" @click="$emit('openCart')">
         <q-tooltip class="bg-accent">In cart {{countItems}} items</q-tooltip>
         <q-badge color="red" floating> {{ countItems }} </q-badge>
       </q-btn>
@@ -26,7 +26,7 @@
       countItems: Number,
       default: 0,
     },
-    emits: ["leftDrawerOpen"],
+    emits: ["leftDrawerOpen",'openCart'],
     setup(_, { emit }) {
 
 
