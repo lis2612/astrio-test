@@ -20,6 +20,7 @@
       :countInCart="itemsInCart"
       :itemsInCart="cart"
       :productList="productList"
+      @deleteItem="deleteItem"
     ></cart-dialog>
   </q-layout>
 </template>
@@ -174,6 +175,10 @@
           }
         }
         if (!added) this.cart.push({ id: cardId, count: 1 });
+        this.itemsInCart = this.cart.length;
+      },
+      deleteItem(id){
+        this.cart=this.cart.filter(item=>item.id!=id);
         this.itemsInCart = this.cart.length;
       },
       openCart() {

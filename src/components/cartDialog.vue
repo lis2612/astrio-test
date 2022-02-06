@@ -19,19 +19,28 @@
         </q-card-section>
 
         <template v-if="!emptyCart">
-          <q-markup-table>
+          <q-markup-table separator="cell">
             <thead>
               <tr>
+                <th class="text-left" style="width: 150px"></th>
                 <th class="text-left">Item</th>
-                <th class="text-center">Price</th>
-                <th class="text-center">Qty</th>
-                <th class="text-center">Total</th>
-                <th class="text-center"></th>
+                <th class="text-center" style="width: 100px">Price</th>
+                <th class="text-center" style="width: 100px">Qty</th>
+                <th class="text-center" style="width: 100px">Total</th>
+                <th class="text-center" style="width: 50px"></th>
               </tr>
             </thead>
             <tbody>
               <template v-for="item of cart" :key="item.id">
                 <tr>
+                  <td class="text-left">
+                    <q-img
+                      fit="contain"
+                      style="min-height: 100px; min-width: 30px"
+                      :src="'src/assets' + item.image"
+                    >
+                    </q-img>
+                  </td>
                   <td class="text-left">
                     {{ item.title + ` / Brand ` + item.brand }}
                   </td>
@@ -51,7 +60,7 @@
                     }}
                   </td>
                   <td class="text-right">
-                    <q-btn flat color="primary" icon="delete"></q-btn>
+                    <q-btn flat color="primary" icon="delete" @click="$emit('deleteItem', item.id)"></q-btn>
                   </td>
                 </tr>
               </template>
@@ -102,7 +111,6 @@
           for (const product of this.productList) {
             if (it.id == product.id) {
               items.push(product);
-              console.log(product);
             }
           }
         }
@@ -116,3 +124,6 @@
     },
   };
 </script>
+
+<style lang="sass">
+</style>
