@@ -63,7 +63,9 @@
                   </td>
                   <td class="text-center">
                     {{
-                      getItemsCount(item.id) * item.regular_price.value +
+                      (
+                        getItemsCount(item.id) * item.regular_price.value
+                      ).toFixed(2) +
                       " " +
                       item.regular_price.currency
                     }}
@@ -147,7 +149,7 @@
         for (const item of this.cart) {
           total = total + this.getItemsCount(item.id) * item.regular_price.value;
         }
-        return total;
+        return total.toFixed(2);
       },
     },
     methods: {
