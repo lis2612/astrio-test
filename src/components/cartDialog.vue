@@ -19,7 +19,7 @@
         </q-card-section>
 
         <template v-if="!emptyCart">
-          <q-markup-table separator="cell">
+          <q-markup-table separator="horizontal">
             <thead>
               <tr>
                 <th class="text-left" style="width: 150px"></th>
@@ -78,6 +78,18 @@
                   </td>
                 </tr>
               </template>
+              <tr>
+                <td class="text-left"></td>
+                <td class="text-left"></td>
+                <td class="text-center"></td>
+                <td class="text-center text-weight-bolder subtotal">
+                  Subtotal
+                </td>
+                <td class="text-center text-weight-bolder subtotal">
+                  {{ getTotalCost }} USD
+                </td>
+                <td class="text-right"></td>
+              </tr>
             </tbody>
           </q-markup-table>
         </template>
@@ -130,6 +142,13 @@
         }
         return items;
       },
+      getTotalCost() {
+        let total = 0;
+        for (const item of this.cart) {
+          total = total + this.getItemsCount(item.id) * item.regular_price.value;
+        }
+        return total;
+      },
     },
     methods: {
       getItemsCount(id) {
@@ -142,5 +161,7 @@
   };
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
+.subtotal
+  font-size: larger
 </style>
