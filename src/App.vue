@@ -6,7 +6,13 @@
       :countItems="cart.length"
     ></my-header>
 
-    <q-drawer show-if-above v-model="drawerOpen" side="left" elevated>
+    <q-drawer
+      :width="200"
+      show-if-above
+      v-model="drawerOpen"
+      side="left"
+      bordered
+    >
       <brands-list @applyFilter="setFilter"></brands-list>
     </q-drawer>
 
@@ -85,3 +91,4 @@
     },
   };
 </script>
+

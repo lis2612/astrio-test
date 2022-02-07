@@ -1,27 +1,30 @@
 <template>
-  <q-list align="center">
-    <q-item clickable :active="val === true" @click="selectAll" v-ripple>
-      <q-item-section align="center"> {{ titleSelectAll }} </q-item-section>
+  <q-list align="center" dense>
+    <q-item>
+      <q-item-section align="center" active="false" class="text-h6">
+        Brands filter</q-item-section
+      >
     </q-item>
     <q-separator></q-separator>
     <template v-for="(menuItem, index) in menuList" :key="index">
       <q-item
+        class="text-subtitle1"
+        :class="{'text-weight-bold': menuItem.checked}"
         clickable
         :active="menuItem.checked === true"
-        @click="invertChecked(menuItem.id)"
+        @click="setAndApplyFilter(menuItem.id)"
       >
         <q-item-section align="left">
           {{ menuItem.title }}
         </q-item-section>
       </q-item>
-      <!-- <q-separator :key="'sep' + index" v-if="menuItem.separator" /> -->
     </template>
 
     <q-btn
-      padding="5px 100px"
+
       color="primary"
-      label="apply"
-      @click="applyFilter"
+      label="clear filter"
+      @click="clearFilter"
     />
   </q-list>
 </template>
@@ -31,27 +34,14 @@
   import data from "./../data/data";
   export default {
     setup(_, { emit }) {
-      const val = ref(true);
-      const titleSelectAll = ref("Unselect all");
       const menuList = ref(data.brandsData);
+      clearFilter();
 
-      for (const item of menuList.value) {
-        item.checked = true;
-      }
-      function selectAll() {
-        if (val.value === true) {
-          for (const item of menuList.value) {
-            item.checked = false;
-          }
-          val.value = false;
-          titleSelectAll.value = "Select all";
-        } else {
-          for (const item of menuList.value) {
-            item.checked = true;
-          }
-          val.value = true;
-          titleSelectAll.value = "Unselect all";
-        }
+      function clearFilter() {
+        menuList.value.forEach((item) => {
+          item.checked = false;
+        });
+        applyFilter();
       }
       function invertChecked(id) {
         for (const item of menuList.value) {
@@ -67,16 +57,20 @@
         }
         emit("applyFilter", filter);
       }
+      function setAndApplyFilter(id) {
+        invertChecked(id);
+        applyFilter();
+      }
       return {
         menuList,
-        val,
-        titleSelectAll,
 
-        selectAll,
         invertChecked,
+        clearFilter,
         applyFilter,
+        setAndApplyFilter,
       };
     },
   };
 </script>
+
 

@@ -103,7 +103,7 @@
             v-if="itemsInCart.length"
             label="Buy"
             color="primary"
-            v-close-popup
+            @click="buy"
           />
         </q-card-actions>
       </q-card>
@@ -141,6 +141,10 @@
       },
     },
     methods: {
+      buy() {
+        this.cart.forEach(item=>this.$emit('deleteItem', item.id))
+        alert('Thank you for your purchase!')
+      },
       getItemsCount(id) {
         return this.itemsInCart.filter((item) => item.id == id)[0].count;
       },

@@ -1,7 +1,11 @@
 <template>
   <q-header bordered class="bg-primary text-white">
     <q-toolbar>
-      <q-btn dense icon="menu" @click="leftDrawerOpen" />
+      <q-btn dense icon="menu" @click="leftDrawerOpen">
+        <q-tooltip class="bg-accent"
+          >Brands filter</q-tooltip
+        ></q-btn
+      >
 
       <q-toolbar-title>
         <div>
