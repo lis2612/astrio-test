@@ -51,7 +51,16 @@
                       item.regular_price.currency
                     }}
                   </td>
-                  <td class="text-center">{{ getItemsCount(item.id) }}</td>
+                  <td class="text-center">
+                    <input
+                      :id="item.id"
+                      type="number"
+                      min="1"
+                      style="text-align: right; width: 50px; border: none"
+                      :value="getItemsCount(item.id)"
+                      @change="changeCount"
+                    />
+                  </td>
                   <td class="text-center">
                     {{
                       getItemsCount(item.id) * item.regular_price.value +
@@ -60,7 +69,12 @@
                     }}
                   </td>
                   <td class="text-right">
-                    <q-btn flat color="primary" icon="delete" @click="$emit('deleteItem', item.id)"></q-btn>
+                    <q-btn
+                      flat
+                      color="primary"
+                      icon="delete"
+                      @click="$emit('deleteItem', item.id)"
+                    ></q-btn>
                   </td>
                 </tr>
               </template>
@@ -120,6 +134,9 @@
     methods: {
       getItemsCount(id) {
         return this.itemsInCart.filter((item) => item.id == id)[0].count;
+      },
+      changeCount(e) {
+        this.$emit("changeCount", e.target.id, e.target.valueAsNumber);
       },
     },
   };

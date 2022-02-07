@@ -21,6 +21,7 @@
       :itemsInCart="cart"
       :productList="productList"
       @deleteItem="deleteItem"
+      @changeCount="changeCount"
     ></cart-dialog>
   </q-layout>
 </template>
@@ -180,6 +181,15 @@
       deleteItem(id){
         this.cart=this.cart.filter(item=>item.id!=id);
         this.itemsInCart = this.cart.length;
+      },
+      changeCount(id, count){
+        
+        for (const item of this.cart) {
+          if (item.id==id) {
+            item.count=count
+          }
+        }
+
       },
       openCart() {
         this.dialog = !this.dialog;
