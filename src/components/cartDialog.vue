@@ -12,22 +12,22 @@
             color="primary"
             text-color="white"
           />
-          <span v-if="!emptyCart" class="q-ml-sm text-h6">
+          <span v-if="itemsInCart.length" class="q-ml-sm text-h6">
             In cart {{ countInCart }} items
           </span>
           <span v-else class="text-h6"> Cart is empty </span>
         </q-card-section>
 
-        <template v-if="!emptyCart">
+        <template v-if="itemsInCart.length">
           <q-markup-table separator="horizontal">
             <thead>
               <tr>
-                <th class="text-left" style="width: 150px"></th>
+                <th class="text-left w150"></th>
                 <th class="text-left">Item</th>
-                <th class="text-center" style="width: 100px">Price</th>
-                <th class="text-center" style="width: 100px">Qty</th>
-                <th class="text-center" style="width: 100px">Total</th>
-                <th class="text-center" style="width: 50px"></th>
+                <th class="text-center w100">Price</th>
+                <th class="text-center w100">Qty</th>
+                <th class="text-center w100">Total</th>
+                <th class="text-center w50"></th>
               </tr>
             </thead>
             <tbody>
@@ -36,7 +36,7 @@
                   <td class="text-left">
                     <q-img
                       fit="contain"
-                      style="min-height: 100px; min-width: 30px"
+                      class="itemImg"
                       :src="'src/assets' + item.image"
                     >
                     </q-img>
@@ -56,7 +56,7 @@
                       :id="item.id"
                       type="number"
                       min="1"
-                      style="text-align: right; width: 50px; border: none"
+                      class="input w50"
                       :value="getItemsCount(item.id)"
                       @change="changeCount"
                     />
@@ -112,27 +112,15 @@
 </template>
 
 <script>
-  import cartItem from "./cartItem.vue";
   export default {
-    components: { cartItem },
     props: {
       dialog: Boolean,
       countInCart: Number,
       itemsInCart: Array,
       productList: Array,
     },
-    data() {
-      return {
-        isEmptyCart: true,
-      };
-    },
+
     computed: {
-      emptyCart() {
-        if (this.itemsInCart.length) {
-          this.isEmptyCart = false;
-        } else this.isEmptyCart = true;
-        return this.isEmptyCart;
-      },
       cart() {
         let items = [];
         for (const it of this.itemsInCart) {
@@ -146,9 +134,9 @@
       },
       getTotalCost() {
         let total = 0;
-        for (const item of this.cart) {
+        this.cart.forEach((item) => {
           total = total + this.getItemsCount(item.id) * item.regular_price.value;
-        }
+        });
         return total.toFixed(2);
       },
     },
@@ -166,4 +154,16 @@
 <style lang="sass" scoped>
 .subtotal
   font-size: larger
+.input
+  text-align: right
+  border: none
+.w50
+  width: 50px
+.w100
+  width: 100px
+.w150
+  width: 150px
+.itemImg
+  min-height: 100px
+  min-width: 30px
 </style>
