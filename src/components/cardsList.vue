@@ -28,16 +28,10 @@
 </template>
 
 <script>
-  // import { ref, computed } from "vue";
   export default {
     props: {
       filterArr: Array,
       productList: Array,
-    },
-    data() {
-      return {
-        filteredList: this.productList,
-      };
     },
 
     computed: {
@@ -51,8 +45,7 @@
             }
           }
         }
-        this.filteredList = list;
-        return this.filteredList;
+        return list;
       },
     },
   };
