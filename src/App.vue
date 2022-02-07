@@ -183,7 +183,7 @@
         this.itemsInCart = this.cart.length;
       },
       changeCount(id, count){
-        
+
         for (const item of this.cart) {
           if (item.id==id) {
             item.count=count
