@@ -8,8 +8,9 @@
     <q-separator></q-separator>
     <template v-for="(menuItem, index) in menuList" :key="index">
       <q-item
+
         class="text-subtitle1"
-        :class="{'text-weight-bold': menuItem.checked}"
+        :class="{'text-weight-bold selItem': menuItem.checked}"
         clickable
         :active="menuItem.checked === true"
         @click="setAndApplyFilter(menuItem.id)"
@@ -21,7 +22,7 @@
     </template>
 
     <q-btn
-
+      class="btn"
       color="primary"
       label="clear filter"
       @click="clearFilter"
@@ -74,3 +75,10 @@
 </script>
 
 
+<style lang="sass">
+.btn
+  margin-top: 10px
+.selItem
+  background-color: #E5E7E9
+
+</style>
