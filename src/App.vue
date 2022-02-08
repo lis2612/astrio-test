@@ -8,9 +8,9 @@
 
     <q-drawer
       :width="200"
-      show-if-above
       v-model="drawerOpen"
       side="left"
+      show-if-above
       bordered
     >
       <brands-list @applyFilter="setFilter"></brands-list>
@@ -18,17 +18,17 @@
 
     <q-page-container>
       <cards-list
+        :productList="productList"
         :filter-arr="filter"
         @add-to-cart="addToCart"
-        :productList="productList"
       ></cards-list>
     </q-page-container>
     <cart-dialog
+      :productList="productList"
       :dialog="dialog"
-      @closeCart="dialog = !dialog"
       :countInCart="cart.length"
       :itemsInCart="cart"
-      :productList="productList"
+      @closeCart="dialog = !dialog"
       @deleteItem="deleteItem"
       @changeCount="changeCount"
     ></cart-dialog>
@@ -62,18 +62,10 @@
         this.filter = event;
       },
       addToCart(cardId) {
-        let added = false;
-        if (this.cart.length > 0) {
-          // если в корзине что-то есть
-          for (const item of this.cart) {
-            if (item.id == cardId) {
-              item.count += 1;
-              added = true;
-            }
-          }
-        }
-        // если в корзине ничего нет или нет подходящего артикула
-        if (!added) this.cart.push({ id: cardId, count: 1 });
+        let indx = this.cart.findIndex((item) => item.id == cardId);
+        if (indx == -1) {
+          this.cart.push({ id: cardId, count: 1 });
+        } else this.cart[indx].count += 1;
       },
       deleteItem(id) {
         this.cart = this.cart.filter((item) => item.id != id);
