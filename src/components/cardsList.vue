@@ -28,27 +28,27 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      filterArr: Array,
-      productList: Array,
-    },
+export default {
+  props: {
+    filterArr: Array,
+    productList: Array,
+  },
 
-    computed: {
-      filteredCards() {
-        if (this.filterArr.length < 1) return this.productList;
-        let list = [];
-        for (const item of this.filterArr) {
-          for (const card of this.productList) {
-            if (card.brand == item) {
-              list.push(card);
-            }
+  computed: {
+    filteredCards() {
+      if (this.filterArr.length < 1) return this.productList;
+      let list = [];
+      for (const item of this.filterArr) {
+        for (const card of this.productList) {
+          if (card.brand == item) {
+            list.push(card);
           }
         }
-        return list;
-      },
+      }
+      return list;
     },
-  };
+  },
+};
 </script>
 
 <style lang="sass" scoped>

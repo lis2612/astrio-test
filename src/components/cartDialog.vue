@@ -47,7 +47,7 @@
                   <td class="text-center">
                     {{
                       item.regular_price.value +
-                      " " +
+                      ' ' +
                       item.regular_price.currency
                     }}
                   </td>
@@ -66,7 +66,7 @@
                       (
                         getItemsCount(item.id) * item.regular_price.value
                       ).toFixed(2) +
-                      " " +
+                      ' ' +
                       item.regular_price.currency
                     }}
                   </td>
@@ -112,47 +112,47 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      dialog: Boolean,
-      countInCart: Number,
-      itemsInCart: Array,
-      productList: Array,
-    },
+export default {
+  props: {
+    dialog: Boolean,
+    countInCart: Number,
+    itemsInCart: Array,
+    productList: Array,
+  },
 
-    computed: {
-      cart() {
-        let items = [];
-        for (const it of this.itemsInCart) {
-          for (const product of this.productList) {
-            if (it.id == product.id) {
-              items.push(product);
-            }
+  computed: {
+    cart() {
+      let items = [];
+      for (const it of this.itemsInCart) {
+        for (const product of this.productList) {
+          if (it.id == product.id) {
+            items.push(product);
           }
         }
-        return items;
-      },
-      getTotalCost() {
-        let total = 0;
-        this.cart.forEach((item) => {
-          total = total + this.getItemsCount(item.id) * item.regular_price.value;
-        });
-        return total.toFixed(2);
-      },
+      }
+      return items;
     },
-    methods: {
-      buy() {
-        this.cart.forEach((item) => this.$emit("deleteItem", item.id));
-        alert("Thank you for your purchase!");
-      },
-      getItemsCount(id) {
-        return this.itemsInCart.filter((item) => item.id == id)[0].count;
-      },
-      changeCount(e) {
-        this.$emit("changeCount", e.target.id, e.target.valueAsNumber);
-      },
+    getTotalCost() {
+      let total = 0;
+      this.cart.forEach((item) => {
+        total = total + this.getItemsCount(item.id) * item.regular_price.value;
+      });
+      return total.toFixed(2);
     },
-  };
+  },
+  methods: {
+    buy() {
+      this.cart.forEach((item) => this.$emit('deleteItem', item.id));
+      alert('Thank you for your purchase!');
+    },
+    getItemsCount(id) {
+      return this.itemsInCart.filter((item) => item.id == id)[0].count;
+    },
+    changeCount(e) {
+      this.$emit('changeCount', e.target.id, e.target.valueAsNumber);
+    },
+  },
+};
 </script>
 
 <style lang="sass" scoped>

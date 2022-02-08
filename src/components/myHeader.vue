@@ -2,9 +2,7 @@
   <q-header bordered class="bg-primary text-white">
     <q-toolbar>
       <q-btn dense icon="menu" @click="leftDrawerOpen">
-        <q-tooltip class="bg-accent"
-          >Brands filter</q-tooltip
-        ></q-btn
+        <q-tooltip class="bg-accent">Brands filter</q-tooltip></q-btn
       >
 
       <q-toolbar-title>
@@ -26,19 +24,19 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      countItems: Number,
-      default: 0,
-    },
-    emits: ["leftDrawerOpen", "openCart"],
-    setup(_, { emit }) {
-      const leftDrawerOpen = () => {
-        emit("leftDrawerOpen");
-      };
-      return { leftDrawerOpen };
-    },
-  };
+export default {
+  props: {
+    countItems: Number,
+    default: 0,
+  },
+  emits: ['leftDrawerOpen', 'openCart'],
+  setup(_, { emit }) {
+    const leftDrawerOpen = () => {
+      emit('leftDrawerOpen');
+    };
+    return { leftDrawerOpen };
+  },
+};
 </script>
 
 <style lang="sass">

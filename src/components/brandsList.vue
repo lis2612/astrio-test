@@ -30,49 +30,48 @@
 </template>
 
 <script>
-  import { ref } from "vue";
-  import data from "./../data/data";
-  export default {
-    setup(_, { emit }) {
-      const menuList = ref(data.brandsData);
-      clearFilter();
+import { ref } from 'vue';
+import data from './../data/data';
+export default {
+  setup(_, { emit }) {
+    const menuList = ref(data.brandsData);
+    clearFilter();
 
-      function clearFilter() {
-        menuList.value.forEach((item) => {
-          item.checked = false;
-        });
-        applyFilter();
+    function clearFilter() {
+      menuList.value.forEach((item) => {
+        item.checked = false;
+      });
+      applyFilter();
+    }
+    function invertChecked(id) {
+      for (const item of menuList.value) {
+        if (item.id === id) item.checked = !item.checked;
       }
-      function invertChecked(id) {
-        for (const item of menuList.value) {
-          if (item.id === id) item.checked = !item.checked;
+    }
+    function applyFilter() {
+      const filter = [];
+      for (const item of menuList.value) {
+        if (item.checked) {
+          filter.push(item.id);
         }
       }
-      function applyFilter() {
-        const filter = [];
-        for (const item of menuList.value) {
-          if (item.checked) {
-            filter.push(item.id);
-          }
-        }
-        emit("applyFilter", filter);
-      }
-      function setAndApplyFilter(id) {
-        invertChecked(id);
-        applyFilter();
-      }
-      return {
-        menuList,
+      emit('applyFilter', filter);
+    }
+    function setAndApplyFilter(id) {
+      invertChecked(id);
+      applyFilter();
+    }
+    return {
+      menuList,
 
-        invertChecked,
-        clearFilter,
-        applyFilter,
-        setAndApplyFilter,
-      };
-    },
-  };
+      invertChecked,
+      clearFilter,
+      applyFilter,
+      setAndApplyFilter,
+    };
+  },
+};
 </script>
-
 
 <style lang="sass">
 .btn
