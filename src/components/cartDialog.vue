@@ -1,9 +1,9 @@
 <template>
   <div class="q-pa-md">
     <q-dialog
+      @update:model-value="$emit('closeCart')"
       maximized
       v-model="dialog"
-      @update:model-value="$emit('closeCart')"
     >
       <q-card class="my-card">
         <q-card-section class="row items-center">
@@ -53,12 +53,12 @@
                   </td>
                   <td class="text-center">
                     <input
+                      :value="getItemsCount(item.id)"
                       :id="item.id"
+                      @change="changeCount"
+                      class="input w50"
                       type="number"
                       min="1"
-                      class="input w50"
-                      :value="getItemsCount(item.id)"
-                      @change="changeCount"
                     />
                   </td>
                   <td class="text-center">
@@ -72,10 +72,10 @@
                   </td>
                   <td class="text-right">
                     <q-btn
-                      flat
+                      @click="$emit('deleteItem', item.id)"
                       color="primary"
                       icon="delete"
-                      @click="$emit('deleteItem', item.id)"
+                      flat
                     ></q-btn>
                   </td>
                 </tr>
@@ -100,10 +100,10 @@
         <q-card-actions align="right">
           <q-btn label="Cancel" color="primary" v-close-popup />
           <q-btn
+            @click="buy"
             v-if="itemsInCart.length"
             label="Buy"
             color="primary"
-            @click="buy"
           />
         </q-card-actions>
       </q-card>
@@ -142,8 +142,8 @@
     },
     methods: {
       buy() {
-        this.cart.forEach(item=>this.$emit('deleteItem', item.id))
-        alert('Thank you for your purchase!')
+        this.cart.forEach((item) => this.$emit("deleteItem", item.id));
+        alert("Thank you for your purchase!");
       },
       getItemsCount(id) {
         return this.itemsInCart.filter((item) => item.id == id)[0].count;

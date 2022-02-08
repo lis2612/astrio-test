@@ -2,18 +2,17 @@
   <q-list align="center" dense>
     <q-item>
       <q-item-section align="center" active="false" class="text-h6">
-        Brands filter</q-item-section
-      >
+        Brands filter
+      </q-item-section>
     </q-item>
     <q-separator></q-separator>
     <template v-for="(menuItem, index) in menuList" :key="index">
       <q-item
-
-        class="text-subtitle1"
-        :class="{'text-weight-bold selItem': menuItem.checked}"
-        clickable
+        :class="{ 'text-weight-bold selItem': menuItem.checked }"
         :active="menuItem.checked === true"
         @click="setAndApplyFilter(menuItem.id)"
+        class="text-subtitle1"
+        clickable
       >
         <q-item-section align="left">
           {{ menuItem.title }}
@@ -22,10 +21,10 @@
     </template>
 
     <q-btn
+      @click="clearFilter"
       class="btn"
       color="primary"
       label="clear filter"
-      @click="clearFilter"
     />
   </q-list>
 </template>
@@ -80,5 +79,4 @@
   margin-top: 10px
 .selItem
   background-color: #E5E7E9
-
 </style>
