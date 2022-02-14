@@ -36,7 +36,9 @@ export default {
 
   computed: {
     filteredCards() {
-      if (this.filterArr.length < 1) return this.productList;
+      if (this.filterArr.length < 1) {
+        return this.productList
+        };
       let list = [];
       for (const item of this.filterArr) {
         for (const card of this.productList) {

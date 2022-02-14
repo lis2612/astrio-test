@@ -123,9 +123,9 @@ export default {
   computed: {
     cart() {
       let items = [];
-      for (const it of this.itemsInCart) {
+      for (const item of this.itemsInCart) {
         for (const product of this.productList) {
-          if (it.id == product.id) {
+          if (item.id == product.id) {
             items.push(product);
           }
         }
