@@ -3,7 +3,7 @@
     <q-dialog
       @update:model-value="$emit('closeCart')"
       maximized
-      v-model="dialog"
+      v-model="cartVisible"
     >
       <q-card class="my-card">
         <q-card-section class="row items-center">
@@ -12,13 +12,13 @@
             color="primary"
             text-color="white"
           />
-          <span v-if="itemsInCart.length" class="q-ml-sm text-h6">
-            In cart {{ countInCart }} items
+          <span v-if="this.$store.getters.qtyItemsInCart" class="q-ml-sm text-h6">
+            In cart {{ this.$store.getters.qtyItemsInCart }} items
           </span>
           <span v-else class="text-h6"> Cart is empty </span>
         </q-card-section>
 
-        <template v-if="itemsInCart.length">
+        <template v-if="this.$store.getters.qtyItemsInCart">
           <q-markup-table separator="horizontal">
             <thead>
               <tr>
@@ -31,7 +31,7 @@
               </tr>
             </thead>
             <tbody>
-              <template v-for="item of cart" :key="item.id">
+              <template v-for="item of this.$store.state.shoppingCart" :key="item.id">
                 <tr>
                   <td class="text-left">
                     <q-img
@@ -53,7 +53,7 @@
                   </td>
                   <td class="text-center">
                     <input
-                      :value="getItemsCount(item.id)"
+                      :value="item.qty"
                       :id="item.id"
                       @change="changeCount"
                       class="input w50"
@@ -64,7 +64,7 @@
                   <td class="text-center">
                     {{
                       (
-                        getItemsCount(item.id) * item.regular_price.value
+                        item.qty * item.regular_price.value
                       ).toFixed(2) +
                       ' ' +
                       item.regular_price.currency
@@ -72,7 +72,7 @@
                   </td>
                   <td class="text-right">
                     <q-btn
-                      @click="$emit('deleteItem', item.id)"
+                      @click="this.$store.commit('deleteItemFromCart', item.id)"
                       color="primary"
                       icon="delete"
                       flat
@@ -88,7 +88,7 @@
                   Subtotal
                 </td>
                 <td class="text-center text-weight-bolder subtotal">
-                  {{ getTotalCost }} USD
+                  {{ this.$store.getters.getTotalCost }} USD
                 </td>
                 <td class="text-right"></td>
               </tr>
@@ -101,7 +101,7 @@
           <q-btn label="Cancel" color="primary" v-close-popup />
           <q-btn
             @click="buy"
-            v-if="itemsInCart.length"
+            v-if="this.$store.getters.qtyItemsInCart"
             label="Buy"
             color="primary"
           />
@@ -114,43 +114,25 @@
 <script>
 export default {
   props: {
-    dialog: Boolean,
-    countInCart: Number,
-    itemsInCart: Array,
-    productList: Array,
+    cartVisible: Boolean,
   },
 
-  computed: {
-    cart() {
-      let items = [];
-      for (const item of this.itemsInCart) {
-        for (const product of this.productList) {
-          if (item.id == product.id) {
-            items.push(product);
-          }
-        }
-      }
-      return items;
-    },
-    getTotalCost() {
-      let total = 0;
-      this.cart.forEach((item) => {
-        total = total + this.getItemsCount(item.id) * item.regular_price.value;
-      });
-      return total.toFixed(2);
-    },
-  },
   methods: {
     buy() {
-      this.cart.forEach((item) => this.$emit('deleteItem', item.id));
-      alert('Thank you for your purchase!');
-    },
-    getItemsCount(id) {
-      return this.itemsInCart.filter((item) => item.id == id)[0].count;
+      this.$q.dialog({
+        title: 'Thank you for your purchase!',
+        message: `You bought ${this.$store.getters.qtyItemsInCart} items worth $${this.$store.getters.getTotalCost}`
+      }).onOk(() => {
+        this.$store.commit('clearShoppingCart');
+      })
     },
     changeCount(e) {
-      this.$emit('changeCount', e.target.id, e.target.valueAsNumber);
+      this.$store.commit('changeQtyItemInCart',{
+        id: e.target.id,
+        count: e.target.valueAsNumber
+        });
     },
+
   },
 };
 </script>

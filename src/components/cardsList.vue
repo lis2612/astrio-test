@@ -1,7 +1,10 @@
 <template>
-  <div class="row justify-evenly items-start">
-    <template v-for="(card, id) in filteredCards" :key="id">
-      <div class="my-card q-pa-md row items-start q-gutter-md justify-center">
+  <div class="row q-pa-lg">
+    <template v-if="this.$store.getters.filteredList.length<1">
+      <div class="my-card text-h6">По данным фильтрам товаров не найдено</div>
+    </template>
+    <template v-else v-for="card in this.$store.getters.filteredList" :key="card.id">
+      <div class="my-card q-pa-md row col-auto">
         <q-card align="right">
           <q-img :src="'src/assets' + card.image">
             <div class="absolute-bottom">
@@ -16,7 +19,7 @@
               {{ card.regular_price.currency }}
             </div>
             <q-btn
-              @click="$emit('addToCart', card.id)"
+              @click="$emit('addToCart', {id:card.id, count:1})"
               icon="local_grocery_store"
               flat
             ></q-btn>
@@ -28,34 +31,12 @@
 </template>
 
 <script>
-export default {
-  props: {
-    filterArr: Array,
-    productList: Array,
-  },
 
-  computed: {
-    filteredCards() {
-      if (this.filterArr.length < 1) {
-        return this.productList
-        };
-      let list = [];
-      for (const item of this.filterArr) {
-        for (const card of this.productList) {
-          if (card.brand == item) {
-            list.push(card);
-          }
-        }
-      }
-      return list;
-    },
-  },
-};
 </script>
 
 <style lang="sass" scoped>
 .my-card
   min-height: 40%
 .my-price
-  min-width: 120px
+  min-width: 125px
 </style>
