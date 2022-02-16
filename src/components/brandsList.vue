@@ -17,9 +17,9 @@
         <q-item-section align="left" style="display:inline">
             {{ menuItem.title }}
         </q-item-section>
-        <q-item-sectioon side top>
+        <q-item-section side top>
           <q-badge   color="blue-3" align="middle" > {{ this.$store.getters.qtyItemOfBrand(menuItem.id) }} </q-badge>
-        </q-item-sectioon>
+        </q-item-section>
       </q-item>
     </template>
 

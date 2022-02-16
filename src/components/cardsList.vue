@@ -1,7 +1,7 @@
 <template>
   <div class="row q-pa-lg">
     <template v-if="this.$store.getters.filteredList.length < 1">
-      <div class="my-card text-h6">No products found for the this filters</div>
+      <div class="my-card text-h6 text-center">No products found for the this filters</div>
     </template>
     <template
       v-else
