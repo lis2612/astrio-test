@@ -132,6 +132,9 @@ export default {
         count: e.target.valueAsNumber
         });
     },
+    deleteItem(id) {
+      store.commit('deleteItemFromCart', itemId);
+    },
 
   },
 };

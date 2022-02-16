@@ -1,10 +1,17 @@
 <template>
   <div class="row q-pa-lg">
-    <template v-if="this.$store.getters.filteredList.length<1">
-      <div class="my-card text-h6">По данным фильтрам товаров не найдено</div>
+    <template v-if="this.$store.getters.filteredList.length < 1">
+      <div class="my-card text-h6">No products found for the this filters</div>
     </template>
-    <template v-else v-for="card in this.$store.getters.filteredList" :key="card.id">
-      <div class="my-card q-pa-md row col-auto">
+    <template
+      v-else
+      v-for="card in this.$store.getters.filteredList"
+      :key="card.id"
+    >
+      <div
+      class="my-card q-pa-md "
+      :class="[$q.platform.is.mobile ? 'col-grow':'row col-auto']"
+      >
         <q-card align="right">
           <q-img :src="'src/assets' + card.image">
             <div class="absolute-bottom">
@@ -19,7 +26,9 @@
               {{ card.regular_price.currency }}
             </div>
             <q-btn
-              @click="$emit('addToCart', {id:card.id, count:1})"
+              @click="
+                this.$store.commit('addItemToCart', { id: card.id, count: 1 })
+              "
               icon="local_grocery_store"
               flat
             ></q-btn>
@@ -30,9 +39,7 @@
   </div>
 </template>
 
-<script>
-
-</script>
+<script></script>
 
 <style lang="sass" scoped>
 .my-card

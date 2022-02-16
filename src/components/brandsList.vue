@@ -14,12 +14,12 @@
         class="text-subtitle1"
         clickable
       >
-        <q-item-section align="left">
-          <div>
-            {{ menuItem.title }} <span style="color:grey">({{ this.$store.getters.qtyItemOfBrand(menuItem.id) }})</span>
-          </div>
-
+        <q-item-section align="left" style="display:inline">
+            {{ menuItem.title }}
         </q-item-section>
+        <q-item-sectioon side top>
+          <q-badge   color="blue-3" align="middle" > {{ this.$store.getters.qtyItemOfBrand(menuItem.id) }} </q-badge>
+        </q-item-sectioon>
       </q-item>
     </template>
 

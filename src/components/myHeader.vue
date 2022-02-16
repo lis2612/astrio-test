@@ -2,8 +2,8 @@
   <q-header bordered class="bg-primary text-white">
     <q-toolbar>
       <q-btn dense icon="menu" @click="$emit('toggleFilterDrawer')">
-        <q-tooltip class="bg-accent">Brands filter</q-tooltip></q-btn
-      >
+        <q-tooltip class="bg-accent">Brands filter</q-tooltip>
+        </q-btn>
 
       <q-toolbar-title>
         <div>
@@ -17,7 +17,7 @@
         @click="$emit('openCart')"
       >
         <q-tooltip class="bg-accent">In cart {{ this.qtyItemsInCart }} items</q-tooltip>
-        <q-badge color="red" floating> {{ this.qtyItemsInCart }} </q-badge>
+        <q-badge v-if="this.qtyItemsInCart" color="red" floating> {{ this.qtyItemsInCart }} </q-badge>
       </q-btn>
     </q-toolbar>
   </q-header>
@@ -27,10 +27,10 @@
 import { mapGetters } from 'vuex';
 export default {
   computed: {
-  ...mapGetters (['qtyItemsInCart']),
-
+  ...mapGetters ([
+      'qtyItemsInCart',
+    ]),
   }
-
 };
 </script>
 
