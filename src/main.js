@@ -1,5 +1,7 @@
 import { createApp } from 'vue';
-import { Quasar } from 'quasar';
+// import { createStore } from 'vuex';
+import Store from './store';
+import { Quasar, Dialog } from 'quasar';
 import quasarLang from 'quasar/lang/ru';
 
 // Import icon libraries
@@ -11,13 +13,15 @@ import 'quasar/src/css/index.sass';
 import App from './App.vue';
 
 const myApp = createApp(App);
+// const store = createStore();
 
-myApp.use(Quasar, {
-  plugins: {},
-  lang: quasarLang,
-});
+myApp
+  .use(Quasar, {
+    plugins: {Dialog},
+    lang: quasarLang,
+  })
+  .use(Store)
+  .mount('#app');
 
-myApp.mount('#app');
 
-
-
+// myApp.mount('#app');

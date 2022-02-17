@@ -6,7 +6,7 @@
       </q-item-section>
     </q-item>
     <q-separator></q-separator>
-    <template v-for="(menuItem, index) in menuList" :key="index">
+    <template v-for="menuItem in menuList" :key="menuItem.id">
       <q-item
         :class="{ 'text-weight-bold selItem': menuItem.checked }"
         :active="menuItem.checked === true"
@@ -14,8 +14,11 @@
         class="text-subtitle1"
         clickable
       >
-        <q-item-section align="left">
-          {{ menuItem.title }}
+        <q-item-section align="left" style="display:inline">
+            {{ menuItem.title }}
+        </q-item-section>
+        <q-item-section side top>
+          <q-badge   color="blue-3" align="middle" > {{ this.$store.getters.qtyItemOfBrand(menuItem.id) }} </q-badge>
         </q-item-section>
       </q-item>
     </template>
@@ -31,23 +34,32 @@
 
 <script>
 import { ref } from 'vue';
+import { useStore } from "vuex";
 import data from './../data/data';
+
 export default {
   setup(_, { emit }) {
+    const store = useStore();
     const menuList = ref(data.brandsData);
+
     clearFilter();
 
     function clearFilter() {
       menuList.value.forEach((item) => {
         item.checked = false;
       });
-      applyFilter();
+      store.commit('clearFilter');
     }
+
     function invertChecked(id) {
       for (const item of menuList.value) {
-        if (item.id === id) item.checked = !item.checked;
+        if (item.id === id) {
+          item.checked = !item.checked;
+          break;
+          }
       }
     }
+
     function applyFilter() {
       const filter = [];
       for (const item of menuList.value) {
@@ -55,8 +67,9 @@ export default {
           filter.push(item.id);
         }
       }
-      emit('applyFilter', filter);
+      store.commit('setFilter', filter);
     }
+
     function setAndApplyFilter(id) {
       invertChecked(id);
       applyFilter();
@@ -64,9 +77,7 @@ export default {
     return {
       menuList,
 
-      invertChecked,
       clearFilter,
-      applyFilter,
       setAndApplyFilter,
     };
   },
