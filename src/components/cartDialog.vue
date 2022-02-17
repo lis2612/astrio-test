@@ -32,8 +32,8 @@
         <template v-else>
           <div class="text-h6 text-center">No items in cart</div>
         </template>
-
-        <q-card-actions :align="[$q.platform.is.mobile ? 'evenly' : 'right']">
+        <q-separator></q-separator>
+        <q-card-actions :align="[$q.platform.is.mobile ? 'evenly' : 'right']" class="q-my-md">
           <q-btn label="Cancel" color="primary" v-close-popup />
           <q-btn
             @click="buy"

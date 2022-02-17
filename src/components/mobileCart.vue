@@ -1,12 +1,13 @@
 <template>
   <template v-for="item in this.$store.state.shoppingCart" :key="item.id">
-    <div class="my-card q-pa-md col-grow">
+    <div class="my-card q-px-md q-py-xs col-grow">
       <q-card align="right">
-        <q-img :src="'src/assets' + item.image">
-          <div class="absolute-bottom">
+        <q-card-section horizontal>
+          <q-img :src="'src/assets' + item.image"></q-img>
+          <div class="col-8 q-pa-xs q-pr-md">
             <div class="text-h6">{{ item.title }}</div>
-            <div class="text-h7">Brand: {{ item.brand }}</div>
-            <div class="text-h7">
+            <div class="text-body2">Brand: {{ item.brand }}</div>
+            <div class="text-body2">
               Price:
               {{
                 item.regular_price.value.toFixed(2) +
@@ -14,13 +15,15 @@
                 item.regular_price.currency
               }}
             </div>
-            <div class="text-h7">Qty in cart: {{ item.qty }}</div>
+            <div class="text-body2">Qty in cart: {{ item.qty }}</div>
           </div>
-        </q-img>
+        </q-card-section>
+        <q-separator></q-separator>
 
-        <q-card-actions class="justify-between" align="right">
-          <div class="text-h6">
-            Total: ${{ (item.qty * item.regular_price.value).toFixed(2) }}
+
+        <q-card-actions class="q-pr-md justify-between" align="right" bordered>
+          <div class="text-body1">
+            Subtotal: ${{ (item.qty * item.regular_price.value).toFixed(2) }}
           </div>
           <div class="text-h6">
             <q-btn
@@ -56,7 +59,8 @@
       </q-card>
     </div>
   </template>
-  <div class="text-h6 text-center">
+  <q-separator class="q-mt-md"></q-separator>
+  <div class="q-my-md q-mt-md text-h6 text-center">
     Total: {{ this.$store.getters.getTotalCost }} USD
   </div>
 </template>

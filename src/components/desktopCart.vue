@@ -47,7 +47,7 @@
           <td class="text-right">
             <q-btn
               @click="this.$store.commit('deleteItemFromCart', item.id)"
-              color="primary"
+              color="red"
               icon="delete"
               flat
             ></q-btn>
